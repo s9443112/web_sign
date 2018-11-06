@@ -1,6 +1,17 @@
-<% for(let i=0; i<data.length;i++){ %>
-    <% if(data[i]==='\n'){ %>
-        <br/>
-    <% } %>
-    <%= data[i] %>
-<% } %>
+<html>
+    <head>
+       
+        
+    </head>
+    <body>
+        <div class="container">
+            <h1><%= chapter %></h1>
+            <% for(let i=0;i<data.length;i++){ %>
+                <p><%= data[i] %></p>
+            <% } %>
+        </div>
+    </body>
+
+  
+</html>>
+

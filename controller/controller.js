@@ -8,15 +8,15 @@ var fs = require('fs')
 exports.index = async function (req, res) {
     var source = req.headers['user-agent']
     ua = useragent.parse(source);
-    console.log("作業系統: " + ua.os)
-    console.log("瀏覽器是: " + ua.browser)
-    console.log("IP位置是: " + req.ip)
+    // console.log("作業系統: " + ua.os)
+    // console.log("瀏覽器是: " + ua.browser)
+    // console.log("IP位置是: " + req.ip)
     var p1 = "作業系統: " + ua.os;
     var p2 = "瀏覽器是: " + ua.browser
     var p3 = "IP位置是: " + req.ip
-    console.log("font")
+    // console.log("font")
     await go(p1, p2, p3, res)
-    console.log("back")
+    // console.log("back")
 
 
 
@@ -75,7 +75,7 @@ exports.read_book = async function (req, res) {
         //console.log("我近來了")
         last_line = data.search(/\u7b2c\D/)
     }
-    if(last_line!==-1){
+    if (last_line !== -1) {
         while (1) {
             if (data[last_line].search(/\u7ae0/) === 0) {
                 break;
@@ -84,19 +84,34 @@ exports.read_book = async function (req, res) {
                 buffer = 1
             }
         }
-    
+
         data = data.substring(0, last_line)
-    
+
         if (buffer === 1) {
-    
+
             last_line = data.lastIndexOf("第")
-            console.log(last_line)
+            //console.log(last_line)
             data = data.substring(0, last_line)
         }
     }
-    
+
+    var new_data = []
+    var string = ""
+    for (let i = 0; i < data.length; i++) {
+        if (data[i] == '\n') {
+            new_data.push(string)
+            string = ""
+        }
+        if(data[i] != " " && data[i]!="　"){
+            string = string + data[i]
+        }
+    }
+
+
+
     res.render('read_book', {
-        data: data
+        chapter: chapter,
+        data: new_data
     })
 }
 
@@ -182,9 +197,9 @@ async function math(data, math_word, chapter_name) {
 
 async function go(p1, p2, p3, res) {
     var math = Math.floor(Math.random() * Math.floor(5))
-    console.log("choose math is " + math)
+    //console.log("choose math is " + math)
     var img_path = './static/' + math + '.jpg';
-    console.log("1")
+    //console.log("1")
     await gm(img_path)
         .resize(133, 133, '!')
         .write('static/' + math + '.jpg', function (err) {
@@ -210,7 +225,7 @@ async function go(p1, p2, p3, res) {
         default:
             break;
     }
-    console.log("2")
+    //console.log("2")
 
     await gm('./static/background.png')
         .font('./static/fonts/setofont.ttf')
@@ -227,5 +242,5 @@ async function go(p1, p2, p3, res) {
             if (err) console.log(err);
             res.sendFile(path.resolve("static/tesOutput.jpg"))
         });
-    console.log("3")
+    //console.log("3")
 }
