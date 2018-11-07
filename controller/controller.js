@@ -1,4 +1,5 @@
 var useragent = require('express-useragent'); //判斷是否瀏覽器
+var formidable = require('formidable')
 var gm = require('gm') //圖形處理
 var path = require('path');
 var util = require('util')
@@ -22,19 +23,83 @@ exports.index = async function (req, res) {
 
 }
 
+//上傳小說
+exports.update = async function (req, res) {
+    res.render('update')
+}
+
+exports.api_upload =  function (req, res) {
+    var form = new formidable.IncomingForm();
+    form.uploadDir = "./static/books";
+    form.encoding = 'utf-8';
+    form.keepExtensions = true
+    console.log(form)
+    form.parse(req, function (err, fields, files) {
+        res.writeHead(200, {
+            'content-type': 'text/plain;charset=utf8'
+        });
+        // fs.rename(files.csv.path, __dirname + '/../../csv/' + files.csv.name, function (err) {
+        //     if (err) throw err;
+        //     res.write('File uploaded and moved!');
+        //     res.end();
+        // });
+
+    });
+}
+
 //書籍庫
 exports.books = async function (req, res) {
     const readdir = util.promisify(fs.readdir);
     file = await readdir(__dirname + '/../static/books');
+
+    var review = {}
+    for (let i = 0; i < file.length; i++) {
+        var data = fs.readFileSync(__dirname + `/../static/books/${file[i]}/${file[i]}.txt`, 'utf-8');
+        var math_word = /\u7b2c\d/;
+        var chapter = data.search(math_word)
+
+        if (chapter == -1) {
+            var math_word = /\u7b2c\D/;
+            chapter = data.search(math_word)
+            if (chapter == -1) {
+                res.send("error")
+                return
+            } else {
+                //console.log(`data[chapter] ${chapter}`)
+
+            }
+        } else {
+            //console.log(`data[chapter] ${chapter}`)
+        }
+        var string = ""
+        data = data.substring(0, chapter)
+        for (let j = 0; j < data.length; j++) {
+            if (data[j] == '\n') {
+                if(review[i] == undefined){
+                    review[i] = []
+                }
+                string = string + "<br/>"
+                review[i].push(string)
+                string = ""
+                //console.log(JSON.stringify(review))
+            }
+            if (data[j] != " " && data[j] != "　") {
+                string = string + data[j]
+                //console.log(string)
+            }
+        }
+
+    }
     res.render('books', {
-        file: file
+        file: file,
+        review: review
     })
 }
 
 //小說
 exports.book = async function (req, res) {
     var name = req.params.name
-    var data = fs.readFileSync(__dirname + "/../static/books/" + name, 'utf-8');
+    var data = fs.readFileSync(__dirname + `/../static/books/${name}/${name}.txt`, 'utf-8');
 
     var math_word = /\u7b2c\d/;
 
@@ -59,7 +124,7 @@ exports.read_book = async function (req, res) {
     var name = req.params.name
     var chapter = req.params.chapter
     var buffer = 0;
-    var data = fs.readFileSync(__dirname + "/../static/books/" + name, 'utf-8');
+    var data = fs.readFileSync(__dirname + `/../static/books/${name}/${name}.txt`, 'utf-8');
 
     var start = data.indexOf(chapter);
     data = data.substring(start, data.length)
@@ -102,7 +167,7 @@ exports.read_book = async function (req, res) {
             new_data.push(string)
             string = ""
         }
-        if(data[i] != " " && data[i]!="　"){
+        if (data[i] != " " && data[i] != "　") {
             string = string + data[i]
         }
     }

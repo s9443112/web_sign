@@ -1,3 +1,78 @@
-<% for(let i=0; i<file.length;i++){ %>
-    <p><a href="/books/<%= file[i] %>"><%= file[i] %></a></p>
-<% } %>
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <!-- head -->
+  <%- include("templates/head") %>
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <%- include("templates/Navigation") %>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <!-- Page Heading -->
+      <h1 class="my-4">小說庫
+        <small>玄幻魔法</small>
+      </h1>
+
+      <div class="row">
+        <% for(let i=0; i<file.length;i++){ %>
+            <div class="col-lg-4 col-sm-6 portfolio-item">
+                <div class="card h-100">
+                    <a href="/books/<%= file[i] %>"><img class="card-img-top" src="/static/books/<%= file[i] %>/cover.jpg" alt=""  width="100"></a>
+                    <div class="card-body">
+                    <h4 class="card-title">
+                        <p><a href="/books/<%= file[i] %>"><%= file[i] %></a></p>
+                    </h4>
+                    <p class="card-text">
+                      <% for(let ii=0;ii<review[i].length;ii++){ %>
+                        <% if(ii>10){ break; } %>
+                       <%- review[i][ii] %>
+                      <% } %>
+                    </p>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+      </div>
+      <!-- /.row -->
+
+      <!-- Pagination -->
+      <ul class="pagination justify-content-center">
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+      
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+      </ul>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <%- include("templates/footer") %>
+   
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+
+</html>
+
+
+
+

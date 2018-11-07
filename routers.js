@@ -6,4 +6,7 @@ exports.setRequestUrl = function (app) {
         app.get('/books',controller.books) //書籍庫
         app.get('/books/:name',controller.book) //選擇書籍
         app.get('/books/:name/:chapter',controller.read_book)
+        app.get('/update',controller.update)
+
+        app.post('/api/upload',controller.api_upload)
     }

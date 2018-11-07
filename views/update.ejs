@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <!-- head -->
+  <%- include("templates/head") %>
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <%- include("templates/Navigation") %>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <!-- Page Heading -->
+      <h1 class="my-4">上傳小說</h1>
+
+      <div class="row">
+            <div class="col-lg-12 col-sm-12 portfolio-item">
+                <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                <img src="/static/updatecover.jpg" class="img-fluid" alt="Smiley face" > 
+                </div>
+            </div>
+                <form action="/api/upload" method="POST" enctype="multipart/form-data" >
+                    <div class="form-row">
+                        <div class="col-md-12 mb-12">
+                            <input type="hidden" name="_csrf" value="">
+                            <input type="file" name="csv" accept="">
+                        </div>
+                        <div class="col-md-12 mb-12">
+                            <button type="submit" class="btn btn-primary my-1">送出</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <%- include("templates/footer") %>
+   
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+
+</html>
+
+
+
+
