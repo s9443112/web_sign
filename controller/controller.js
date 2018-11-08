@@ -127,6 +127,7 @@ exports.read_book = async function (req, res) {
     var data = fs.readFileSync(__dirname + `/../static/books/${name}/${name}.txt`, 'utf-8');
 
     var start = data.indexOf(chapter);
+    //console.log(`start ${start}`)
     data = data.substring(start, data.length)
    
     var first_line = data.search(/\r/)
@@ -182,6 +183,11 @@ exports.read_book = async function (req, res) {
             string = string + data[i]
         }
         if(i+1==data.length){
+            //console.log("12345")
+            let x = string.search(/\u7b2c/)
+           
+            string = string.substring(x,string.length)
+    
             new_data.push(string)
         }
        
