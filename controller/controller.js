@@ -128,12 +128,14 @@ exports.read_book = async function (req, res) {
 
     var start = data.indexOf(chapter);
     data = data.substring(start, data.length)
+   
     var first_line = data.search(/\r/)
     //console.log("first_line "+first_line)
     if (first_line === -1) {
         first_line = data.search(/\n/)
     }
     data = data.substring(first_line, data.length)
+    
     var last_line = data.search(/\u7b2c\d/)
 
     if (last_line === -1) {
@@ -143,26 +145,35 @@ exports.read_book = async function (req, res) {
     if (last_line !== -1) {
         while (1) {
             if (data[last_line].search(/\u7ae0/) === 0) {
-                break;
+                if(last_line>100){
+                    break;
+                }
+                last_line = last_line + 1
+                buffer = 1
             } else {
                 last_line = last_line + 1
                 buffer = 1
             }
-        }
-
-        data = data.substring(0, last_line)
-
-        if (buffer === 1) {
-
-            last_line = data.lastIndexOf("第")
             //console.log(last_line)
-            data = data.substring(0, last_line)
         }
+       
+        
+        data = data.substring(0, last_line+1)
+
+        
+        // if (buffer === 1) {
+
+        //     last_line = data.lastIndexOf("第")
+        //     //console.log(last_line)
+        //     data = data.substring(0, last_line)
+        // }
     }
+  
 
     var new_data = []
     var string = ""
     for (let i = 0; i < data.length; i++) {
+       
         if (data[i] == '\n') {
             new_data.push(string)
             string = ""
@@ -170,11 +181,16 @@ exports.read_book = async function (req, res) {
         if (data[i] != " " && data[i] != "　") {
             string = string + data[i]
         }
+        if(i+1==data.length){
+            new_data.push(string)
+        }
+       
     }
 
 
 
     res.render('read_book', {
+        name:name,
         chapter: chapter,
         data: new_data
     })
