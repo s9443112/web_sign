@@ -202,6 +202,11 @@ exports.read_book = async function (req, res) {
     })
 }
 
+//關於我
+exports.about = async function(req,res){
+    res.render('about')
+}
+
 
 async function math(data, math_word, chapter_name) {
 

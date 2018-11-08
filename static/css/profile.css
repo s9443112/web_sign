@@ -1,0 +1,117 @@
+/* ts ui wrapper */
+.ts.items {
+    padding:3px;
+}
+.pointing.speech {
+    height:0px;
+    visibility:hidden;
+}
+/* end */
+
+/* fix for ts list in speech */
+.fix.content {
+    border: 0px!important;
+    border-radius: 0px!important;
+    margin: 0 !important;
+    box-shadow: 0px !important;
+    padding-top:10px !important;
+    padding-bottom:0px !important;
+}
+/* end */
+
+.fix.content .header{
+    color:#404040!important;
+    line-height:0em!important;
+}
+.fix.content .meta {
+    bottom:0em!important;
+    display: flex !important;
+    margin:0.5em 0em 0.5em !important;
+    float:none !important;
+    opacity: 1 !important;
+    line-height:1.4385em!important;
+    font-size:1em !important;
+}
+.fix.content .description {
+    line-height:1.4385em!important;
+
+}
+.fix.image{
+    margin:0em!important;
+    border-top-left-radius:0rem!important;
+    border-top-right-radius:0rem!important;
+}
+/* end */
+
+/* reicss for profile */
+.reicss.profile.cover {
+    height:25%;
+}
+
+.reicss.profile.content {
+    min-height:45%;
+}
+/* end */
+
+/* keyframe animate for speech pop */
+@-webkit-keyframes fadeIn {
+    0% {
+        visibility:visible;
+        display:flex !important;
+        opacity: 0; 
+    }
+    50% {
+        height:auto;
+        visibility:visible;
+        display:flex !important;
+        opacity: 0; 
+    }
+    100% {
+        height:auto;
+        visibility:visible;
+        display:flex !important;
+        opacity: 1; 
+    }
+}
+/* end */
+
+/* webkit animate for div bind */
+#ask {
+    -webkit-animation: fadeIn 1.0s forwards;
+}
+#ask .middoted .r {
+    -webkit-animation: fadeIn 1.0s forwards 0.5s;
+}
+#ans {
+    -webkit-animation: fadeIn 1.0s forwards 2.0s; 
+}
+#ans .middoted .r {
+    -webkit-animation: fadeIn 1.0s forwards 2.5s;
+}
+#ask2 {
+    -webkit-animation: fadeIn 1.0s forwards 4.0s; 
+}
+#ask2 .middoted .r {
+    -webkit-animation: fadeIn 1.0s forwards 4.5s;
+}
+#ask3 {
+    -webkit-animation: fadeIn 1.0s forwards 5.0s; 
+}
+#ask3 .middoted .r {
+    -webkit-animation: fadeIn 1.0s forwards 5.5s;
+}
+#ask4 {
+    -webkit-animation: fadeIn 1.0s forwards 6.5s; 
+}
+#ask4 .middoted .r {
+    -webkit-animation: fadeIn 1.0s forwards 7.0s;
+}
+.ani.pointing {
+    -webkit-animation: fadeIn 1.0s forwards 6.0s;
+}
+.ani.pointing  .middoted .r{
+    -webkit-animation: fadeIn 1.0s forwards 6.5s; 
+}
+/* end */
+
+
